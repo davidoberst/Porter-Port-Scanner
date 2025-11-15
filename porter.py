@@ -39,7 +39,7 @@ def Scan1000_CommonPorts():
 #Verify if the host is UP before scanning target
 host = args.target
 response = ping(host)
-if not response:
+if response is None:
  print("Unable to ping the host; it may be offline.")
 else:
   print("Host is up.")
