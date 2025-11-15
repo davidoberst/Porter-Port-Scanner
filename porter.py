@@ -22,19 +22,19 @@ with open("ports.json", "r") as f:
 
 openPorts=[]
 print(f"Searching for open ports in {args.target}...") 
-
 def Scan1000_CommonPorts():
- for x in data["common_ports"]:
-  sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #create socket per port
-  sock.settimeout(3)
-  result = sock.connect_ex(((args.target) , int(x)))
-  if result == 0:
-   openPorts.append(x) 
-  sock.close()
- #RESULTS
-print(f"Scan ended, open ports : {len(openPorts)} ")
-for p in openPorts:
- print(f"{p} ---> OPEN")
+    for x in data["common_ports"]:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.settimeout(0.2)
+        result = sock.connect_ex((args.target, int(x)))
+        if result == 0:
+            openPorts.append(x)
+        sock.close()
+
+   
+    print(f"Scan ended, open ports : {len(openPorts)} ")
+    for p in openPorts:
+        print(f"{p} ---> OPEN")
 
 #Verify if the host is UP before scanning target
 host = args.target
