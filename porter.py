@@ -3,6 +3,7 @@ import pyfiglet
 import argparse
 import json
 import time
+from tqdm import tqdm
 from ping3 import ping
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #create socket
@@ -27,8 +28,9 @@ openPorts=[]
 
 
 def Scan1000_CommonPorts(): #SCAN DEFAULT PORTS
+    ports = data["common_ports"]
     print(f"Searching for open ports in {args.target}...") 
-    for x in data["common_ports"]:
+    for x in tqdm(ports, desc="Scanning ports", unit="port"):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.settimeout(0.2)
         result = sock.connect_ex((args.target, int(x)))
